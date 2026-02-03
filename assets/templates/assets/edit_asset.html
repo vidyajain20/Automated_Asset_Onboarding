@@ -1,0 +1,166 @@
+{% extends 'assets/base.html' %}
+
+{% block header %}Edit Asset: {{ asset.asset_id }}{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">
+            Update Asset Details
+        </h3>
+        <div class="mt-2 max-w-xl text-sm text-gray-500">
+            <p>Modify the details of the asset below.</p>
+        </div>
+
+        {% if form.errors %}
+        <div class="rounded-md bg-red-50 p-4 mt-4">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm leading-5 font-medium text-red-800">
+                        There were errors with your submission
+                    </h3>
+                    <div class="mt-2 text-sm leading-5 text-red-700">
+                        <ul class="list-disc pl-5 space-y-1">
+                            {% for field in form %}
+                            {% for error in field.errors %}
+                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                            {% endfor %}
+                            {% endfor %}
+                            {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <form method="post" class="mt-5 space-y-6">
+            {% csrf_token %}
+
+            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                <!-- Serial Number -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.serial_number.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Serial Number
+                    </label>
+                    <div class="mt-1">
+                        {{ form.serial_number }}
+                    </div>
+                </div>
+
+                <!-- Asset Tag -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.asset_tag.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Asset Tag
+                    </label>
+                    <div class="mt-1">
+                        {{ form.asset_tag }}
+                    </div>
+                </div>
+
+                <!-- Model ID -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.model_id.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Model ID
+                    </label>
+                    <div class="mt-1">
+                        {{ form.model_id }}
+                    </div>
+                </div>
+
+                <!-- Model Category -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.model_category.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Model Category
+                    </label>
+                    <div class="mt-1">
+                        {{ form.model_category }}
+                    </div>
+                </div>
+
+                <!-- CI Name -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.ci_name.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        CI Name
+                    </label>
+                    <div class="mt-1">
+                        {{ form.ci_name }}
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.location.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Location
+                    </label>
+                    <div class="mt-1">
+                        {{ form.location }}
+                    </div>
+                </div>
+
+                <!-- IP Address -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.ip_address.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        IP Address
+                    </label>
+                    <div class="mt-1">
+                        {{ form.ip_address }}
+                    </div>
+                </div>
+
+                <!-- MAC Address -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.mac_address.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        MAC Address
+                    </label>
+                    <div class="mt-1">
+                        {{ form.mac_address }}
+                    </div>
+                </div>
+
+                <!-- Status -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Status
+                    </label>
+                    <div class="mt-1">
+                        {{ form.status }}
+                    </div>
+                </div>
+
+                <!-- DMR Status -->
+                <div class="sm:col-span-3">
+                    <label for="{{ form.dmr_status.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        DMR Status
+                    </label>
+                    <div class="mt-1">
+                        {{ form.dmr_status }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-5">
+                <div class="flex justify-end">
+                    <a href="{% url 'dashboard' %}"
+                        class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
